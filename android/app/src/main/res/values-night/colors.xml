@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="ui_background">#212630</color>
+  <color name="splashscreen_background">#212630</color>
+  <color name="ui_icon_background">#FFFFFF</color>
+  <color name="primary_color">#2979FF</color> 
+</resources>

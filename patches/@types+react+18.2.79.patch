@@ -1,0 +1,13 @@
+diff --git a/node_modules/@types/react/index.d.ts b/node_modules/@types/react/index.d.ts
+index 25bc72a..94e64a0 100644
+--- a/node_modules/@types/react/index.d.ts
++++ b/node_modules/@types/react/index.d.ts
+@@ -1074,7 +1074,7 @@ declare namespace React {
+      * }
+      * ```
+      */
+-    type FC<P = {}> = FunctionComponent<P>;
++    type FC<P = {}> = FunctionComponent<PropsWithChildren<P>>;
+ 
+     /**
+      * Represents the type of a function component. Can optionally

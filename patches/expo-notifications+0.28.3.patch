@@ -1,0 +1,13 @@
+diff --git a/node_modules/expo-notifications/android/src/main/java/expo/modules/notifications/notifications/JSONNotificationContentBuilder.java b/node_modules/expo-notifications/android/src/main/java/expo/modules/notifications/notifications/JSONNotificationContentBuilder.java
+index 0af7fe0..e7af629 100644
+--- a/node_modules/expo-notifications/android/src/main/java/expo/modules/notifications/notifications/JSONNotificationContentBuilder.java
++++ b/node_modules/expo-notifications/android/src/main/java/expo/modules/notifications/notifications/JSONNotificationContentBuilder.java
+@@ -70,7 +70,7 @@ public class JSONNotificationContentBuilder extends NotificationContent.Builder
+ 
+   protected String getText(JSONObject payload) {
+     try {
+-      return payload.getString(TEXT_KEY);
++      return payload.has(TEXT_KEY) ? payload.getString(TEXT_KEY) : payload.getString(BODY_KEY);
+     } catch (JSONException e) {
+       return null;
+     }

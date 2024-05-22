@@ -1,0 +1,24 @@
+diff --git a/node_modules/react-native-web/dist/index.js b/node_modules/react-native-web/dist/index.js
+index 4f69987..ec84ee1 100644
+--- a/node_modules/react-native-web/dist/index.js
++++ b/node_modules/react-native-web/dist/index.js
+@@ -29,6 +29,7 @@ export { default as Share } from './exports/Share';
+ export { default as StyleSheet } from './exports/StyleSheet';
+ export { default as UIManager } from './exports/UIManager';
+ export { default as Vibration } from './exports/Vibration';
++export { default as InputAccessoryView } from './exports/InputAccessoryView';
+ 
+ // components
+ export { default as ActivityIndicator } from './exports/ActivityIndicator';
+diff --git a/node_modules/react-native-web/src/index.js b/node_modules/react-native-web/src/index.js
+index f1a6f23..0d746a3 100644
+--- a/node_modules/react-native-web/src/index.js
++++ b/node_modules/react-native-web/src/index.js
+@@ -30,6 +30,7 @@ export { default as Share } from './exports/Share';
+ export { default as StyleSheet } from './exports/StyleSheet';
+ export { default as UIManager } from './exports/UIManager';
+ export { default as Vibration } from './exports/Vibration';
++export { default as InputAccessoryView } from './exports/InputAccessoryView';
+ 
+ // components
+ export { default as ActivityIndicator } from './exports/ActivityIndicator';

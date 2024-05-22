@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "empty-app",
+    "slug": "empty-app",
+    "owner": "romanonthego",
+    "privacy": "hidden",
+    "jsEngine": "hermes",
+    "platforms": ["android"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "empty-app",
+    "userInterfaceStyle": "automatic",
+    "updates": {
+      "fallbackToCacheTimeout": 0,
+      "checkAutomatically": "ON_LOAD",
+      "enabled": true,
+      "url": "https://u.expo.dev/0d4825d6-c926-4ccf-87a2-199cafa37ec9"
+    },
+    "assetBundlePatterns": ["**/*"],
+
+    "android": {
+      "jsEngine": "hermes",
+      "package": "com.empty.app"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0d4825d6-c926-4ccf-87a2-199cafa37ec9"
+      }
+    },
+    "runtimeVersion": "1.0.0",
+    "plugins": [
+      "expo-build-properties",
+      "expo-localization",
+      "expo-router",
+      "expo-tracking-transparency",
+      "expo-asset",
+      "expo-font",
+      "expo-secure-store"
+    ]
+  }
+}

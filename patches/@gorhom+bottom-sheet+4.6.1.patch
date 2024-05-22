@@ -1,0 +1,12 @@
+diff --git a/node_modules/@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/types.d.ts b/node_modules/@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/types.d.ts
+index 55bc45f..865f100 100644
+--- a/node_modules/@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/types.d.ts
++++ b/node_modules/@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/types.d.ts
+@@ -55,6 +55,7 @@ export interface BottomSheetProps
+    * @type Array<string | number>
+    */
+   snapPoints?:
++    | Readonly<{ value: (string | number)[]; }>
+     | Array<string | number>
+     | SharedValue<Array<string | number>>
+     | Readonly<(string | number)[] | SharedValue<(string | number)[]>>;

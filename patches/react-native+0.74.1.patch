@@ -1,0 +1,12 @@
+diff --git a/node_modules/react-native/Libraries/StyleSheet/StyleSheetTypes.d.ts b/node_modules/react-native/Libraries/StyleSheet/StyleSheetTypes.d.ts
+index 072d386..7403ff2 100644
+--- a/node_modules/react-native/Libraries/StyleSheet/StyleSheetTypes.d.ts
++++ b/node_modules/react-native/Libraries/StyleSheet/StyleSheetTypes.d.ts
+@@ -22,6 +22,7 @@ export type DimensionValue =
+   | number
+   | 'auto'
+   | `${number}%`
++  | string
+   | Animated.AnimatedNode
+   | null;
+ type AnimatableNumericValue = number | Animated.AnimatedNode;

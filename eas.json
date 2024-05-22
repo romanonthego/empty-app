@@ -1,0 +1,23 @@
+{
+  "cli": {
+    "version": ">=2.5.1",
+    "promptToConfigurePushNotifications": false,
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "channel": "development",
+      "developmentClient": true,
+      "distribution": "store",
+      "autoIncrement": true,
+      "env": {
+        "APP_VARIANT": "development"
+      },
+      "android": {
+        "image": "latest",
+        "gradleCommand": ":app:assembleDevelopmentDebug",
+        "resourceClass": "medium"
+      }
+    }
+  }
+}

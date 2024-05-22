@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native/React/Base/RCTKeyCommands.m b/node_modules/react-native/React/Base/RCTKeyCommands.m
+index 1ceaf6e..3e3eeb5 100644
+--- a/node_modules/react-native/React/Base/RCTKeyCommands.m
++++ b/node_modules/react-native/React/Base/RCTKeyCommands.m
+@@ -14,7 +14,7 @@
+ #import "RCTDefines.h"
+ #import "RCTUtils.h"
+ 
+-#if RCT_DEV
++#if 0
+ 
+ @interface UIEvent (UIPhysicalKeyboardEvent)
+ 

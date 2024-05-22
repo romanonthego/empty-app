@@ -1,0 +1,37 @@
+diff --git a/node_modules/expo-splash-screen/android/src/main/java/expo/modules/splashscreen/SplashScreenView.kt b/node_modules/expo-splash-screen/android/src/main/java/expo/modules/splashscreen/SplashScreenView.kt
+index 938ff95..eeb5129 100644
+--- a/node_modules/expo-splash-screen/android/src/main/java/expo/modules/splashscreen/SplashScreenView.kt
++++ b/node_modules/expo-splash-screen/android/src/main/java/expo/modules/splashscreen/SplashScreenView.kt
+@@ -16,10 +16,18 @@ class SplashScreenView(
+   context: Context
+ ) : RelativeLayout(context) {
+   val imageView: ImageView = ImageView(context).also { view ->
+-    view.layoutParams = LayoutParams(
+-      LayoutParams.MATCH_PARENT,
+-      LayoutParams.MATCH_PARENT
++    val sizeInPixels: Int = getResources().getDimensionPixelSize(R.dimen.logo_size);
++
++    val layoutParams = LayoutParams(
++      sizeInPixels,
++      sizeInPixels,
++    )
++
++    layoutParams.addRule(
++      CENTER_IN_PARENT
+     )
++    
++    view.layoutParams = layoutParams
+   }
+ 
+   init {
+diff --git a/node_modules/expo-splash-screen/android/src/main/res/values/dimens.xml b/node_modules/expo-splash-screen/android/src/main/res/values/dimens.xml
+new file mode 100644
+index 0000000..7fb9235
+--- /dev/null
++++ b/node_modules/expo-splash-screen/android/src/main/res/values/dimens.xml
+@@ -0,0 +1,4 @@
++
++<resources>
++  <dimen name="logo_size">288dp</dimen>
++</resources>
+\ No newline at end of file

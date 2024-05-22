@@ -1,0 +1,33 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "assets/*": ["assets/*"],
+      "src/*": ["src/*"],
+      "components/*": ["src/components/*"],
+      "types/*": ["src/types/*"],
+      // legacy
+      "app/*": ["src/app/*"],
+      "app": ["src/app"],
+      "elements": ["src/components/Elements"],
+      "formikElements": ["src/components/formikElements"],
+      "formikElements/*": ["src/components/formikElements/*"],
+      "mobx-state/*": ["src/mobx-state/*"],
+      "mobx-state": ["src/mobx-state"],
+      "themed-components": ["src/themed-components"],
+      "themed-components/*": ["src/themed-components/*"],
+      "hooks/*": ["src/hooks/*"],
+      "hooks": ["src/hooks"],
+      "types": ["src/types"],
+      "style/*": ["src/style/*"],
+      "style": ["src/style"],
+      "utils/*": ["src/utils/*"],
+      "utils": ["src/utils"]
+    }
+  }
+}

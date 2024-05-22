@@ -1,0 +1,131 @@
+diff --git a/node_modules/react-native-popable/lib/module/Backdrop/Backdrop.web.js b/node_modules/react-native-popable/lib/module/Backdrop/Backdrop.web.js
+index b38d888..c997af6 100644
+--- a/node_modules/react-native-popable/lib/module/Backdrop/Backdrop.web.js
++++ b/node_modules/react-native-popable/lib/module/Backdrop/Backdrop.web.js
+@@ -8,8 +8,8 @@ export default function Backdrop({
+   useEffect(() => {
+     const handler = event => {
+       if ( // @ts-ignore
+-      !popoverRef.current.contains(event.target) && // @ts-ignore
+-      !childrenRef.current.contains(event.target) && visible) {
++      !popoverRef.current?.contains(event.target) && // @ts-ignore
++      !childrenRef.current?.contains(event.target) && visible) {
+         onPress();
+       }
+     }; // @ts-ignore
+diff --git a/node_modules/react-native-popable/lib/module/Caret.js b/node_modules/react-native-popable/lib/module/Caret.js
+index 0deb570..7096c64 100644
+--- a/node_modules/react-native-popable/lib/module/Caret.js
++++ b/node_modules/react-native-popable/lib/module/Caret.js
+@@ -5,10 +5,16 @@ export default (({
+   align,
+   backgroundColor,
+   position,
++  offset,
+   style
+ }) => {
++  const rotateAngle = 45;
++  const fixingOffset = align === 'left' ? 4.5 : align === 'right' ? -4.5 : 0
++  const radians = (Math.PI / 180) * rotateAngle;
++  const xOffset = ((offset ?? 0) + fixingOffset) * Math.cos(radians) * -1;
++  const yOffset = ((offset ?? 0) + fixingOffset) * Math.sin(radians) * 1;
+   return /*#__PURE__*/React.createElement(View, {
+-    style: [styles.container, align === 'center' && styles.containerCenter, align === 'right' && styles.containerRight, !!backgroundColor && {
++    style: [styles.container, { transform: [{rotate: `${rotateAngle}deg`}, {translateX: xOffset}, { translateY: yOffset }] }, align === 'center' && styles.containerCenter, align === 'right' && styles.containerRight, !!backgroundColor && {
+       backgroundColor
+     }, position === 'top' && styles.containerPositionTop, position === 'bottom' && styles.containerPositionBottom, position === 'left' && styles.containerPositionLeft, position === 'right' && styles.containerPositionRight, style]
+   });
+diff --git a/node_modules/react-native-popable/lib/module/Popable.js b/node_modules/react-native-popable/lib/module/Popable.js
+index 1e37047..3697db0 100644
+--- a/node_modules/react-native-popable/lib/module/Popable.js
++++ b/node_modules/react-native-popable/lib/module/Popable.js
+@@ -26,7 +26,9 @@ const Popable = /*#__PURE__*/forwardRef(function Popable({
+   strictPosition = false,
+   style,
+   visible,
+-  wrapperStyle
++  wrapperStyle,
++  horizontalOffset,
++  bodyHorizontalOffset
+ }, ref) {
+   const dimensions = useWindowDimensions();
+   const [popoverVisible, setPopoverVisible] = useState(false);
+@@ -182,6 +184,7 @@ const Popable = /*#__PURE__*/forwardRef(function Popable({
+     numberOfLines,
+     position: computedPosition
+   };
++  const mainTooltipOffset = (caretPosition === 'left' ? 0 : caretPosition === 'right' ? (popoverOffset.left * 2) : popoverOffset.left)
+   return /*#__PURE__*/React.createElement(View, {
+     style: [styles.container, wrapperStyle]
+   }, /*#__PURE__*/React.createElement(Backdrop, {
+@@ -213,6 +216,7 @@ const Popable = /*#__PURE__*/forwardRef(function Popable({
+   }, sharedPopoverProps, {
+     onLayout: handlePopoverLayout,
+     visible: Platform.OS === 'web' ? isPopoverVisible : false,
++    caretOffset: bodyHorizontalOffset,
+     style: [computedPosition === 'top' && styles.popoverTop, computedPosition === 'bottom' && styles.popoverBottom, computedPosition === 'left' && {
+       alignItems: 'flex-end',
+       right: childrenLayout.width
+@@ -221,7 +225,7 @@ const Popable = /*#__PURE__*/forwardRef(function Popable({
+     }, {
+       position: 'absolute',
+       transform: [{
+-        translateX: popoverOffset.left * -1
++        translateX: (mainTooltipOffset - (bodyHorizontalOffset ?? 0) - (horizontalOffset ?? 0)) * -1
+       }, {
+         translateY: popoverOffset.top * -1
+       }]
+diff --git a/node_modules/react-native-popable/lib/module/Popover.js b/node_modules/react-native-popable/lib/module/Popover.js
+index b26c78e..19c7954 100644
+--- a/node_modules/react-native-popable/lib/module/Popover.js
++++ b/node_modules/react-native-popable/lib/module/Popover.js
+@@ -16,6 +16,7 @@ const Popover = /*#__PURE__*/React.forwardRef(function Popover({
+   numberOfLines,
+   visible = true,
+   position = 'bottom',
++  caretOffset,
+   style,
+   ...extraProps
+ }, ref) {
+@@ -58,7 +59,8 @@ const Popover = /*#__PURE__*/React.forwardRef(function Popover({
+     align: caretPosition,
+     position: position,
+     backgroundColor: backgroundColor,
+-    style: styles.caret
++    style: styles.caret,
++    offset: caretOffset
+   });
+   let animationTranslation;
+ 
+diff --git a/node_modules/react-native-popable/lib/typescript/Popable.d.ts b/node_modules/react-native-popable/lib/typescript/Popable.d.ts
+index 8257eba..61c0007 100644
+--- a/node_modules/react-native-popable/lib/typescript/Popable.d.ts
++++ b/node_modules/react-native-popable/lib/typescript/Popable.d.ts
+@@ -18,6 +18,8 @@ export declare type PopableProps = {
+     style?: PopoverProps['style'];
+     visible?: boolean;
+     wrapperStyle?: ViewProps['style'];
++    horizontalOffset?: number;
++    bodyHorizontalOffset?: number;
+ };
+ declare const Popable: React.ForwardRefExoticComponent<PopableProps & React.RefAttributes<PopableManager>>;
+ export default Popable;
+diff --git a/node_modules/react-native-popable/lib/typescript/Popover.d.ts b/node_modules/react-native-popable/lib/typescript/Popover.d.ts
+index 25b61de..9674dea 100644
+--- a/node_modules/react-native-popable/lib/typescript/Popover.d.ts
++++ b/node_modules/react-native-popable/lib/typescript/Popover.d.ts
+@@ -11,6 +11,7 @@ export declare type PopoverProps = {
+     numberOfLines?: number;
+     visible?: boolean;
+     position?: 'top' | 'right' | 'bottom' | 'left';
++    caretOffset?: number;
+ } & ViewProps;
+ declare const Popover: React.ForwardRefExoticComponent<{
+     animated?: boolean | undefined;
+@@ -23,5 +24,6 @@ declare const Popover: React.ForwardRefExoticComponent<{
+     numberOfLines?: number | undefined;
+     visible?: boolean | undefined;
+     position?: "left" | "right" | "top" | "bottom" | undefined;
++    caretOffset?: number | undefined;
+ } & ViewProps & React.RefAttributes<View>>;
+ export default Popover;
